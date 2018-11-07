@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+  compileSdkVersion 27
+  defaultConfig {
+    applicationId "com.finapp"
+    minSdkVersion 23
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0"
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    externalNativeBuild {
+      cmake {
+        cppFlags ""
+      }
+    }
+
+    vectorDrawables.useSupportLibrary = true
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+  externalNativeBuild {
+    cmake {
+      path "CMakeLists.txt"
+    }
+  }
+  dataBinding {
+    enabled = true
+  }
+}
+
+dependencies {
+  def lifecycle_version = "1.1.1"
+  def room_version = "1.1.1"
+  def paging_version = "1.0.0"
+  def daggerVersion = "2.11"
+  def retrofit_version = '2.3.0'
+
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+  implementation 'com.android.support:support-v4:27.1.1'
+  wearApp project(':wear')
+
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  implementation 'com.android.support:appcompat-v7:27.1.1'
+  implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+  implementation 'com.android.support:design:27.1.1'
+  implementation "com.android.support:cardview-v7:27.1.1"
+  implementation 'com.google.android.gms:play-services-wearable:+'
+
+  implementation 'com.jakewharton.timber:timber:4.6.0'
+
+  implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+  implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+  implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+  implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+
+  implementation "android.arch.lifecycle:extensions:$lifecycle_version" // ViewModel and LiveData
+  implementation "android.arch.lifecycle:viewmodel:$lifecycle_version"
+  // alternatively, just ViewModel
+  implementation "android.arch.lifecycle:livedata:$lifecycle_version"
+  // alternatively, just LiveData
+
+  implementation "android.arch.persistence.room:runtime:$room_version" // Room
+  implementation "android.arch.persistence.room:rxjava2:$room_version"
+  // optional - RxJava support for Room
+
+  implementation "android.arch.paging:runtime:$paging_version" // Paging
+  implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+  // optional - RxJava support, currently in release candidate
+
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
+
+  implementation 'com.roughike:bottom-bar:2.3.1'
+
+  implementation "com.google.dagger:dagger:$daggerVersion"
+  implementation "com.google.dagger:dagger-android:$daggerVersion"
+  implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+  // if you use the support libraries
+
+  // RxJava2 Dependencies
+  implementation 'io.reactivex.rxjava2:rxjava:2.2.1'
+  implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+
+  kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+  kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+  kapt "android.arch.persistence.room:compiler:$room_version"
+
+  testImplementation "android.arch.core:core-testing:1.1.1" // Test helpers for LiveData
+  testImplementation "android.arch.persistence.room:testing:$room_version" // Test helpers for Room
+  testImplementation "android.arch.paging:common:$paging_version"
+  // alternatively - without Android dependencies for testing
+  testImplementation 'junit:junit:4.12'
+
+  annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+  annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+  annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+  annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+
+  androidTestImplementation 'com.android.support.test:runner:1.0.2'
+  androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

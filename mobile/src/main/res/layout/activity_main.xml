@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools" >
+
+  <data>
+    <variable
+      name="viewModel"
+      type="com.finapp.features.main.MainViewModel" />
+  </data>
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".features.main.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+      android:id="@+id/appBarLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- This could be your fragment container, or something -->
+    <FrameLayout
+      android:id="@+id/contentContainer"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_above="@+id/bottomBar"
+      app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="top|end"
+      android:layout_margin="@dimen/fab_margin"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+      app:layout_constraintEnd_toEndOf="@+id/contentContainer"
+      app:srcCompat="@drawable/ic_receipt" />
+
+    <android.support.design.widget.BottomNavigationView
+      android:id="@+id/bottomBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:itemBackground="?attr/colorPrimary"
+      app:itemIconTint="@android:color/white"
+      app:itemTextColor="@android:color/white"
+      app:menu="@menu/bottombar_tabs"
+      app:onNavigationItemSelected="@{viewModel::onNavigationClick}"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+  </android.support.constraint.ConstraintLayout>
+</layout>
