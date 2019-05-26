@@ -15,7 +15,7 @@ import com.finapp.entity.*
   Investment::class,
   Deposit::class,
   Withdrawal::class
-], version = 1)
+], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class FinappDatabase : RoomDatabase() {
 
